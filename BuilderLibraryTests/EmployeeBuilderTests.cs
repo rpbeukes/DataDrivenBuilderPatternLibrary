@@ -70,13 +70,17 @@ namespace BuilderLibraryTests
         [Fact]
         public void AustralianAddressValidator_EmployeeAddressShouldBeValidWhenAnyPostCodeFromAustralia()
         {
+            //arrange
             var builder = new EmployeeBuilder();
 
             var employee = builder.WithEmployeeFromAustralia()
                                   .Build();
 
+            //act
+            //system under test
             var sut = new AustralianAddressValidator(employee);
 
+            //assert
             sut.IsValidate().ShouldBeTrue();
         }
 
@@ -87,7 +91,7 @@ namespace BuilderLibraryTests
 
             var employee = builder.WithEmployeeFromSouthAfrica()
                                   .Build();
-
+            //system under test
             var sut = new AustralianAddressValidator(employee);
 
             sut.IsValidate().ShouldBeFalse();
