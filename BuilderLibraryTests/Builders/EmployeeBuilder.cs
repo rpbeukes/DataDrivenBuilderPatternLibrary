@@ -1,5 +1,5 @@
 ﻿using BuilderLibrary;
-using BuilderLibraryTests.DataModels;
+using Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +10,7 @@ namespace BuilderLibraryTests.Builders
     {
         AddressBuilder _addressBuilder = new AddressBuilder();
 
-        public EmployeeBuilder WithAParticularRequirements()
+        public EmployeeBuilder WithParticularScenarionOfRequirements()
         {
             _concreteObject = new Employee()
             {
@@ -27,6 +27,40 @@ namespace BuilderLibraryTests.Builders
                                    .Build(),
                     // null values
                     _addressBuilder.Build()
+                }
+            };
+
+            return this;
+        }
+
+        public EmployeeBuilder WithEmployeeFromAustralia()
+        {
+            _concreteObject = new Employee()
+            {
+                Name = "Bruce",
+                LastName = "Ozzy",
+
+                Addresses = new List<Address>
+                {
+                    //default values
+                    _addressBuilder.WithAustralianAddress().Build(),
+                }
+            };
+
+            return this;
+        }
+
+        public EmployeeBuilder WithEmployeeFromSouthAfrica()
+        {
+            _concreteObject = new Employee()
+            {
+                Name = "John",
+                LastName = "Long",
+
+                Addresses = new List<Address>
+                {
+                    //default values
+                    _addressBuilder.WithSouthAfricanAddress().Build(),
                 }
             };
 

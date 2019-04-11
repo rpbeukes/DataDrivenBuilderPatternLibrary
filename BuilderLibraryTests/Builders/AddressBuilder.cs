@@ -1,5 +1,5 @@
 ﻿using BuilderLibrary;
-using BuilderLibraryTests.DataModels;
+using Data.Models;
 using System;
 
 namespace BuilderLibraryTests.Builders
@@ -13,6 +13,30 @@ namespace BuilderLibraryTests.Builders
                 Suburb = "Suburb",
                 PostCode = "1234",
                 StreetNumber = 88
+            };
+
+            return this;
+        }
+
+        public AddressBuilder WithAustralianAddress()
+        {
+            _concreteObject = new Address()
+            {
+                Suburb = "Perth",
+                PostCode = "6000",
+                StreetNumber = 22
+            };
+
+            return this;
+        }
+
+        public AddressBuilder WithSouthAfricanAddress()
+        {
+            _concreteObject = new Address()
+            {
+                Suburb = "Sandton",
+                PostCode = "2066",
+                StreetNumber = 11
             };
 
             return this;

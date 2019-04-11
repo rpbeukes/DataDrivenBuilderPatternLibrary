@@ -1,4 +1,5 @@
 using BuilderLibraryTests.Builders;
+using Data.Models;
 using Shouldly;
 using System;
 using System.Linq;
@@ -36,17 +37,60 @@ namespace BuilderLibraryTests
             actual.Name.ShouldBe("First");
             actual.LastName.ShouldBe("Last");
         }
+
         [Fact]
         public void SpecificRequirementsCall()
         {
             var builder = new EmployeeBuilder();
 
-            var actual = builder.WithAParticularRequirements()
+            var actual = builder.WithParticularScenarionOfRequirements()
                                 .Build();
 
             actual.Name.ShouldBe("The Name");
             actual.LastName.ShouldBe("The LastName");
             actual.Addresses.Count().ShouldBe(3);
+        }
+
+        [Fact]
+        public void EmployeeMustAtLeastHaveOneAussieAddress()
+        {
+            var builder = new EmployeeBuilder();
+
+            var actual = builder.WithEmployeeFromAustralia()
+                                .With(e => e.Addresses.Add(new AddressBuilder()
+                                                                    .WithSouthAfricanAddress()
+                                                                    .Build())
+                                     )
+                                .Build();
+
+            actual.Addresses.Count().ShouldBeGreaterThan(1);
+            actual.Addresses.Any(a => a.PostCode == "6000").ShouldBeTrue("No Aussie address detected.");
+        }
+
+        [Fact]
+        public void AustralianAddressValidator_EmployeeAddressShouldBeValidWhenAnyPostCodeFromAustralia()
+        {
+            var builder = new EmployeeBuilder();
+
+            var employee = builder.WithEmployeeFromAustralia()
+                                  .Build();
+
+            var sut = new AustralianAddressValidator(employee);
+
+            sut.IsValidate().ShouldBeTrue();
+        }
+
+        [Fact]
+        public void AustralianAddressValidator_EmployeeAddressShouldBeInvalidWhenNoAustralianPostCodeDetected()
+        {
+            var builder = new EmployeeBuilder();
+
+            var employee = builder.WithEmployeeFromSouthAfrica()
+                                  .Build();
+
+            var sut = new AustralianAddressValidator(employee);
+
+            sut.IsValidate().ShouldBeFalse();
         }
     }
 }

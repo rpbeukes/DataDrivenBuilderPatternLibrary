@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BuilderLibraryTests.DataModels
+namespace Data.Models
 {
     public class Address
     {
