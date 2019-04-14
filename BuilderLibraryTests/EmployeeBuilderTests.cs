@@ -66,35 +66,5 @@ namespace BuilderLibraryTests
             actual.Addresses.Count().ShouldBeGreaterThan(1);
             actual.Addresses.Any(a => a.PostCode == "6000").ShouldBeTrue("No Aussie address detected.");
         }
-
-        [Fact]
-        public void EmployeeValidator_EmployeeAddressShouldBeValidWhenAnyPostCodeFromAustralia()
-        {
-            //arrange
-            var builder = new EmployeeBuilder();
-
-            var employee = builder.WithEmployeeFromAustralia()
-                                  .Build();
-
-            //act
-            //system under test
-            var sut = new EmployeeValidator(employee);
-
-            //assert
-            sut.IsValidAustralianAddress().ShouldBeTrue();
-        }
-
-        [Fact]
-        public void EmployeeValidator_EmployeeAddressShouldBeInvalidWhenNoAustralianPostCodeDetected()
-        {
-            var builder = new EmployeeBuilder();
-
-            var employee = builder.WithEmployeeFromSouthAfrica()
-                                  .Build();
-            //system under test
-            var sut = new EmployeeValidator(employee);
-
-            sut.IsValidAustralianAddress().ShouldBeFalse();
-        }
     }
 }
