@@ -68,7 +68,7 @@ namespace BuilderLibraryTests
         }
 
         [Fact]
-        public void AustralianAddressValidator_EmployeeAddressShouldBeValidWhenAnyPostCodeFromAustralia()
+        public void EmployeeValidator_EmployeeAddressShouldBeValidWhenAnyPostCodeFromAustralia()
         {
             //arrange
             var builder = new EmployeeBuilder();
@@ -78,23 +78,23 @@ namespace BuilderLibraryTests
 
             //act
             //system under test
-            var sut = new AustralianAddressValidator(employee);
+            var sut = new EmployeeValidator(employee);
 
             //assert
-            sut.IsValidate().ShouldBeTrue();
+            sut.IsValidAustralianAddress().ShouldBeTrue();
         }
 
         [Fact]
-        public void AustralianAddressValidator_EmployeeAddressShouldBeInvalidWhenNoAustralianPostCodeDetected()
+        public void EmployeeValidator_EmployeeAddressShouldBeInvalidWhenNoAustralianPostCodeDetected()
         {
             var builder = new EmployeeBuilder();
 
             var employee = builder.WithEmployeeFromSouthAfrica()
                                   .Build();
             //system under test
-            var sut = new AustralianAddressValidator(employee);
+            var sut = new EmployeeValidator(employee);
 
-            sut.IsValidate().ShouldBeFalse();
+            sut.IsValidAustralianAddress().ShouldBeFalse();
         }
     }
 }

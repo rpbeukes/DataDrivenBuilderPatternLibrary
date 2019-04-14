@@ -3,16 +3,16 @@ using System.Linq;
 
 namespace Data.Models
 {
-    public class AustralianAddressValidator
+    public class EmployeeValidator
     {
         readonly Employee _employee;
 
-        public AustralianAddressValidator(Employee employee)
+        public EmployeeValidator(Employee employee)
         {
             _employee = employee ?? throw new ArgumentNullException();
         }
 
-        public bool IsValidate()
+        public bool IsValidAustralianAddress()
         {
             return _employee.Addresses?.Any(e => e.PostCode == "6000") ?? false;
         }
