@@ -71,7 +71,7 @@ namespace BuilderLibraryTests
             // same test BUT this time request a builder via the .With<TRequestBuilder> instead of instantiating it.
             builder = new EmployeeBuilder();
             actual = builder.WithEmployeeFromAustralia()
-                                .With<AddressBuilder>((e, adressBuilder) => e.Addresses.Add(adressBuilder
+                                .With<AddressBuilder>((e, addressBuilder) => e.Addresses.Add(addressBuilder
                                                                                        .WithSouthAfricanAddress()
                                                                                        .Build())
                                                      )
