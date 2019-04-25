@@ -1,7 +1,7 @@
 # Data Driven Builder Pattern Library
 A small sample on how to create data objects in a fluent(ish) way for unit testing.
 
-##Sample Builder Class
+## Sample Builder Class
 ```csharp
 public class AddressBuilder : BuilderBase<Address, AddressBuilder>
 {
@@ -43,7 +43,7 @@ public class AddressBuilder : BuilderBase<Address, AddressBuilder>
 }
 ```
 
-##Samples in Tests
+## Samples in Tests
 
 ```csharp
 var builder = new EmployeeBuilder();
