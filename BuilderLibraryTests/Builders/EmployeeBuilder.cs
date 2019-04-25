@@ -2,6 +2,7 @@
 using Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BuilderLibraryTests.Builders
@@ -10,7 +11,7 @@ namespace BuilderLibraryTests.Builders
     {
         AddressBuilder _addressBuilder = new AddressBuilder();
 
-        public EmployeeBuilder WithParticularScenarionOfRequirements()
+        public EmployeeBuilder WithParticularScenarioOfRequirements()
         {
             _concreteObject = new Employee()
             {
@@ -19,7 +20,7 @@ namespace BuilderLibraryTests.Builders
 
                 Addresses = new List<Address>
                 {
-                    //default values
+                    // default values
                     _addressBuilder.WithDefaultTestValues().Build(),
                     // change some values
                     _addressBuilder.WithDefaultTestValues()
@@ -42,7 +43,7 @@ namespace BuilderLibraryTests.Builders
 
                 Addresses = new List<Address>
                 {
-                    //default values
+                    // default values
                     _addressBuilder.WithAustralianAddress().Build(),
                 }
             };
@@ -59,10 +60,38 @@ namespace BuilderLibraryTests.Builders
 
                 Addresses = new List<Address>
                 {
-                    //default values
+                    // default values
                     _addressBuilder.WithSouthAfricanAddress().Build(),
                 }
             };
+
+            return this;
+        }
+
+        /// <summary>
+        /// Only add address when not in address list
+        /// </summary>
+        public EmployeeBuilder AddSouthAfricanAddress()
+        {
+            return AddAddress(() => _addressBuilder.WithSouthAfricanAddress().Build());
+        }
+
+        /// <summary>
+        /// Only add address when not in address list
+        /// </summary>
+        public EmployeeBuilder AddAustralianAddress()
+        {
+            return AddAddress(() => _addressBuilder.WithAustralianAddress().Build());
+        }
+
+        private EmployeeBuilder AddAddress(Func<Address> addressCreator)
+        {
+            var address = addressCreator?.Invoke();
+
+            // let's assume the post code is unique and identifies an address
+            // we only add when if it doesn't exist in the list.
+            if (!_concreteObject.Addresses.Any(a => a.PostCode == address?.PostCode))
+                _concreteObject.Addresses.Add(address);
 
             return this;
         }

@@ -8,9 +8,13 @@ namespace BuilderLibrary
         where TBuildResult : class, new()
         where TBuilder : class, IBuilder
     {
+        TBuildResult Build();
+
         /// <summary>
         /// A generic way to set properties
         /// </summary>
-        TBuilder With(Action<TBuildResult> setAction); TBuildResult Build();
+        TBuilder With(Action<TBuildResult> setAction);
+
+        TBuilder With<TRequestBuilder>(Action<TBuildResult, TRequestBuilder> setAction) where TRequestBuilder : class, IBuilder, new();
     }
 }

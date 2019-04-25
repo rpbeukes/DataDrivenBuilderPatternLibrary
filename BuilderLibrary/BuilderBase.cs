@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BuilderLibrary
 {
@@ -16,6 +18,12 @@ namespace BuilderLibrary
         public TBuilder With(Action<TBuildResult> setAction)
         {
             setAction?.Invoke(_concreteObject);
+            return this as TBuilder;
+        }
+
+        public TBuilder With<TRequestBuilder>(Action<TBuildResult, TRequestBuilder> setAction) where TRequestBuilder: class, IBuilder, new()
+        {
+            setAction?.Invoke(_concreteObject, new TRequestBuilder());
             return this as TBuilder;
         }
     }
