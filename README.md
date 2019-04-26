@@ -1,6 +1,8 @@
 # Data Driven Builder Pattern Library
 A small sample on how to create data objects in a fluent(ish) way for unit testing.
 
+Here is my [blog post](https://ruanbeukes.net/apply-builder-pattern-to-unit-tests/) to explain a bit more.
+
 ## Sample Builder Class
 ```csharp
 public class AddressBuilder : BuilderBase<Address, AddressBuilder>
