@@ -21,9 +21,15 @@ namespace BuilderLibraryTests.ApprovalTests
                 Suburb = "Wallaby"
             };
 
-            var jsonAddress = JsonConvert.SerializeObject(address, Formatting.Indented);
+            var jsonAddress = JsonConvert.SerializeObject(address);
 
-            Approvals.Verify(jsonAddress);
+            Approvals.VerifyJson(jsonAddress);
+            
+            // few other cool features I'd like to use when the scenario calls for it.
+            // Approvals.VerifyHtml(htmlString);
+            // Approvals.VerifyPdfFile(pdfFilePath);
+            // Approvals.VerifyXml(xmlString);
+            
         }
     }
 }
